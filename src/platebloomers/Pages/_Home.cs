@@ -3,31 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Common.Util.Extensions.Tuple;
 
 namespace platebloomers.Pages {
     public class Home : Common.Site.Page {
         public static string GenerateContent() {
             var sb = new StringBuilder();
             sb.Append("<div class=\"thumbnail_tile\">");
-            //var pictures = new string[] { "1", "2", "2b", "3", "3b", "4", "5", "5b", "6", "6b", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "20", "21", "22", "23", "24", "25", "28", "29", "30", "31", "32" };
-            var pictures = new Dictionary<string, string>() { { "1", "1" }, { "2", "2" }, { "2b", "2 - Side" }, { "3", "3" }, { "3b", "3 - Side" }, { "4", "4" }, { "5", "5" }, { "5b", "5 - Side" }, { "6", "6" }, { "6b", "6 - Side" }, { "7", "7" }, { "8", "8" }, { "9", "9" }, { "10", "10" }, { "11", "11" }, { "12", "12" }, { "13", "13" }, { "14", "14" }, { "15", "15" }, { "16", "16" }, { "17", "17" },
-                { "18", "18" }, { "20", "20" }, { "21", "21" }, { "22", "22" }, { "23", "23" }, { "24", "24" }, { "25", "25" }, { "28", "28" }, { "29", "29" }, { "30", "30" }, { "31", "31" }, { "32", "32" } };
-            //var counter = 0;
+            var pictures = new List<Tuple<string, string, bool>> {
+                { "1", "1", false }, { "2", "2", true }, { "2b", "2 - Side", true }, { "3", "3", false }, { "3b", "3 - Side", false }, { "4", "4", true },
+                { "5", "5", true }, { "5b", "5 - Side", true }, { "6", "6", true }, { "6b", "6 - Side", true }, { "7", "7", true }, { "8", "8", false },
+                { "9", "9", true }, { "10", "10", true }, { "11", "11", false }, { "12", "12", false }, { "13", "13", false }, { "14", "14", false },
+                { "15", "15", true }, { "16", "16", true }, { "17", "17", false }, { "18", "18", false }, { "20", "20", false }, { "21", "21", true },
+                { "22", "22", true }, { "23", "23", true }, { "24", "24", true }, { "25", "25", false }, { "m26", "26 [Medium]", false },
+                { "m27", "27 [Medium]", false }, { "28", "28", true }, { "29", "29", false }, { "30", "30", true }, { "31", "31", true }, { "32", "32", false },
+                { "33", "33", false }, { "m34", "34 [Medium]", false }, { "35", "35", false }, { "m36", "36 [Medium]", false }, { "37", "37", false },
+                { "38", "38", false }, { "39", "39", false }, { "40", "40", false }, { "m41", "41 [Medium]", false }, { "m42", "42 [Medium]", false },
+                { "m43", "43 [Medium]", false }, { "m44", "44 [Medium]", false }, { "m45", "45 [Medium]", false }, { "46", "46", false }, { "48", "48", false },
+                { "49", "49", false }, { "m50", "50 [Medium]", false }, { "52", "52", false }, { "53", "53", false }, { "m54", "54 [Medium]", false },
+                { "55", "55", false }, { "56", "56", false }, { "m60", "60 [Medium]", false }, { "61", "61", false }, { "62", "62", false }, { "63", "63", false },
+                { "m64", "64 [Medium]", false }, { "m65", "65 [Medium]", false }, { "m66", "66 [Medium]", false }, { "m67", "67 [Medium]", false },
+                { "69", "69", false }, { "m70", "70 [Medium]", false }, { "71", "71", false }, { "72", "72", false }
+            };
             foreach (var i in pictures) {
-                //if (counter++ % 4 != 0) {
-                //    sb.Append("<aside class=\"thumbnail_spacer\"></aside>");
-                //}
-                sb.Append($"<picture class=\"thumbnail\" style=\"background-image:url('/image/{i.Key}s.jpg')\"><a href=\"javascript:;\" onclick=\"return m.PreviewPicture('{i.Key}','#{i.Value}');\">#{i.Value}</a></picture>");
+                sb.Append($"<picture class=\"thumbnail\" style=\"background-image:url('/image/{i.Item1}s.jpg')\" onclick=\"return m.PreviewPicture('{i.Item1}','#{i.Item2}');\"><a href=\"javascript:;\" onclick=\"return m.PreviewPicture('{i.Item1}','#{i.Item2}');\">#{i.Item2}</a>");
+                if (i.Item3) {
+                    sb.Append("<aside class=\"sold\">Sold</aside>");
+                }
+                sb.Append("</picture>");
             }
             sb.Append("</div>");
             return sb.ToString();
         }
 
         private string _content;
-        public override string Content
-        {
-            get
-            {
+        public override string Content {
+            get {
                 if (_content == null) {
                     _content = GenerateContent();
                 }
@@ -35,48 +46,36 @@ namespace platebloomers.Pages {
             }
         }
 
-        public override string Description
-        {
-            get
-            {
+        public override string Description {
+            get {
                 return "";
             }
         }
 
-        public override string Key
-        {
-            get
-            {
+        public override string Key {
+            get {
                 return "home";
             }
         }
-        public override string Path
-        {
-            get
-            {
+        public override string Path {
+            get {
                 return string.Empty;
             }
         }
-        public override string Header
-        {
-            get
-            {
+        public override string Header {
+            get {
                 return "Home";
             }
         }
 
-        public override string Title
-        {
-            get
-            {
+        public override string Title {
+            get {
                 return "Plate Bloomers";
             }
         }
 
-        public override string TitleNav
-        {
-            get
-            {
+        public override string TitleNav {
+            get {
                 return "Home";
             }
         }
